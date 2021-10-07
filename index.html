@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color DJ</title>
+</head>
+<style>
+    .head, .foot{
+        text-align: center;
+        color:white;
+        font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    #color-bar::before{
+        content:"";
+        z-index:-1;
+        height: 100%;
+        width: 100%;
+        background: rgb(56, 54, 54);
+        position:absolute;
+        top:0;
+        left:0;
+    }
+    #color-bar{
+        display:flex;
+        align-items:center;
+        justify-content:space-evenly;
+    }
+    .color{
+        border-radius: 50%;
+        margin:3vmin 0vmin;
+        padding:5vmin;
+    }
+    #tomato{
+        background-color:tomato;
+    }
+    #yellow{
+        background-color:yellow;
+    }
+    #cornflowerblue{
+        background-color:cornflowerblue;
+    }
+    #lilac{
+        background-color:rgb(233, 169, 233);
+    }
+    #beige{
+        background-color:beige;
+    }
+    #orange{
+        background-color:orange;
+    }
+    #green{
+        background-color:lightgreen;
+    }
+
+    #center{
+        display:flex;
+        /* border:2px solid black; */
+        border-radius: 50%;
+        width:200px;
+        height:200px;
+        padding:10vmin;
+        margin: 5vmin auto;
+        justify-self: center;
+        align-items:center;
+        justify-content:center;
+    }
+
+</style>
+<body>
+    <header class="head">
+        <h1>Sounds In Colours</h1>
+    </header>
+    <audio preload="auto">
+        <source src="audios/do.wav"></source>
+    </audio>
+    <audio preload="auto">
+        <source src="audios/re.wav"></source>
+    </audio>
+    <audio preload="auto">
+        <source src="audios/mi.wav"></source>
+    </audio>
+    <audio preload="auto">
+        <source src="audios/fa.wav"></source>
+    </audio>
+    <audio preload="auto">
+        <source src="audios/sol.wav"></source>
+    </audio>
+    <audio preload="auto">
+        <source src="audios/la.wav"></source>
+    </audio>
+    <audio preload="auto">
+        <source src="audios/si.wav"></source>
+    </audio>
+
+    <div id="color-bar">
+        <span class="color" id="tomato"></span>
+        <span class="color" id="yellow"></span>
+        <span class="color" id="cornflowerblue"></span>
+        <span class="color" id="lilac"></span>
+        <span class="color" id="beige"></span>
+        <span class="color" id="orange"></span>
+        <span class="color" id="green"></span>
+    </div>
+    <div id="center">
+    </div>
+    <br>
+    <br>
+    <br>
+    <footer class="foot">
+        <h3>by Chirag Sawarn</h3>
+    </footer>
+    <script>
+        const center = document.querySelector("#center");
+
+        const tomatoCircle = document.querySelector("#tomato");
+        const yellowCircle = document.querySelector("#yellow");
+        const cornflowerblueCircle = document.querySelector("#cornflowerblue");
+        const lilacCircle = document.querySelector("#lilac");
+        const beigeCircle = document.querySelector("#beige");
+        const orangeCircle = document.querySelector("#orange");
+        const greenCircle = document.querySelector("#green");
+
+        var getBGcolor = (selectedElement)=>{
+            return window.getComputedStyle(selectedElement).backgroundColor;
+        }
+        
+        // var orangeElementColor = getBGcolor(orangeCircle);
+
+        // orangeCircle.addEventListener("mouseenter",()=>{center.style.backgroundColor = orangeElementColor});
+
+        // DRY Approach
+        const magicChanger = (element,color,sound)=>{
+            return element.addEventListener("mouseenter",()=>{
+                center.style.backgroundColor = color;
+                lastSound.pause();
+                sound.play();
+                lastSound = sound;
+            });
+        }
+        
+        const do_ = document.getElementsByTagName("audio")[0];
+        var lastSound = do_;
+        const re = document.getElementsByTagName("audio")[1];
+        const mi = document.getElementsByTagName("audio")[2];
+        const fa = document.getElementsByTagName("audio")[3];
+        const sol = document.getElementsByTagName("audio")[4];
+        const la = document.getElementsByTagName("audio")[5];
+        const si = document.getElementsByTagName("audio")[6];
+
+        magicChanger(tomatoCircle,getBGcolor(tomatoCircle),do_);
+        magicChanger(yellowCircle,getBGcolor(yellowCircle),re);
+        magicChanger(cornflowerblueCircle,getBGcolor(cornflowerblueCircle),mi);
+        magicChanger(beigeCircle,getBGcolor(beigeCircle),fa);
+        magicChanger(lilacCircle,getBGcolor(lilacCircle),sol);
+        magicChanger(orangeCircle,getBGcolor(orangeCircle),la);
+        magicChanger(greenCircle,getBGcolor(greenCircle),si);
+    </script>
+</body>
+</html>
